@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=OONI Probe
+Comment=Measure internet censorship and network interference
+Exec=/opt/OONI Probe/OONI Probe %U
+Icon=ooni-probe
+Terminal=false
+MimeType=x-scheme-handler/ooni;
+Categories=Network;Utility;

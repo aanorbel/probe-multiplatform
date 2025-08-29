@@ -5,6 +5,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -571,6 +572,23 @@ tasks.named("clean").configure {
 
 tasks.named("clean").configure {
     dependsOn("cleanCopiedCommonResourcesToFlavor")
+}
+
+tasks.withType<AbstractJPackageTask>().configureEach {
+    // Add a custom “Help” URL in the installer
+    freeArgs.add("--win-help-url")
+    freeArgs.add("https://ooni.org/about/")
+
+    // Require a shortcut prompt dialog
+    freeArgs.add("--win-shortcut-prompt")
+
+    // Set an update URL for auto-update checking
+    freeArgs.add("--win-update-url")
+    freeArgs.add("https://ooni.org/about/")
+
+    // Override jpackage resource directory for custom NSIS scripts/icons
+    freeArgs.add("--resource-dir")
+    freeArgs.add(file("$projectDir/installer-resources").absolutePath)
 }
 
 /**
